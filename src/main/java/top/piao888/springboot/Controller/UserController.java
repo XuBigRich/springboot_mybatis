@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import top.piao888.springboot.domain.User;
 import top.piao888.springboot.server.UserServer;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller //声明控制层 若想返回json格式 必须 与 下面ResponseBody 搭配使用
@@ -44,5 +45,9 @@ public class UserController {
         user.setDname("111");
         System.out.println("11");
         userServer.insert(user);
+    }
+    @GetMapping("/te")
+    public void fuck(BigDecimal test){
+        System.out.println(test);
     }
 }
