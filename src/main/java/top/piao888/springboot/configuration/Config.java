@@ -18,7 +18,7 @@ import top.piao888.springboot.domain.Girl;
  */
 @Configuration
 public class Config {
-    @Bean
+//    @Bean
     @ConfigurationProperties("boy")
     public Girl girl2(){
         Girl girl=new Girl();
