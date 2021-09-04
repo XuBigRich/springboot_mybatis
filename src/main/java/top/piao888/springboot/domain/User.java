@@ -8,4 +8,5 @@ import lombok.Setter;
 public class User {
     private int did;
     private String dname;
+    private int gradeId;
 }
