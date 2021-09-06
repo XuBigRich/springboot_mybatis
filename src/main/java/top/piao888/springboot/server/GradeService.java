@@ -1,6 +1,7 @@
 package top.piao888.springboot.server;
 
 import top.piao888.springboot.dto.GradeDTO;
+import top.piao888.springboot.dto.GradeMysqlDTO;
 
 import java.util.Collection;
 
@@ -10,4 +11,6 @@ import java.util.Collection;
  */
 public interface GradeService {
     Collection<GradeDTO> getAllStudent(Integer id);
+
+    GradeMysqlDTO getAllStudentByMysql();
 }

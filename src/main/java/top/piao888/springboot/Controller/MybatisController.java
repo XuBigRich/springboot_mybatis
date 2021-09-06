@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.piao888.springboot.dto.GradeDTO;
+import top.piao888.springboot.dto.GradeMysqlDTO;
 import top.piao888.springboot.server.GradeService;
 
 import java.util.Collection;
@@ -26,5 +27,9 @@ public class MybatisController {
     @GetMapping("getAllStudent")
     public Collection<GradeDTO> getAllStudent(Integer id) {
         return gradeService.getAllStudent(id);
+    }
+    @GetMapping("getAllStudentByMysql")
+    public GradeMysqlDTO getAllStudentByMysql(){
+        return gradeService. getAllStudentByMysql();
     }
 }

@@ -3,6 +3,7 @@ package top.piao888.springboot.mapper;
 import top.piao888.springboot.domain.Grade;
 import top.piao888.springboot.domain.User;
 import top.piao888.springboot.dto.GradeDTO;
+import top.piao888.springboot.dto.GradeMysqlDTO;
 
 import java.util.List;
 
@@ -19,6 +20,12 @@ public interface GradeMapper {
 
 
     List<GradeDTO> getAllStudentAssociation(Integer id);
+
+    /**
+     * 使用mysql原生方案
+     * @return
+     */
+    GradeMysqlDTO mysqlAllStudent();
 
     /**
      * 此查询依附于 selectGrade

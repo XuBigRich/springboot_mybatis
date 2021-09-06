@@ -3,11 +3,11 @@ package top.piao888.springboot.server.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.piao888.springboot.dto.GradeDTO;
+import top.piao888.springboot.dto.GradeMysqlDTO;
 import top.piao888.springboot.mapper.GradeMapper;
 import top.piao888.springboot.server.GradeService;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author 许鸿志
@@ -23,5 +23,11 @@ public class GradeServiceImpl implements GradeService {
 //        return gradeMapper.getAllStudentResultMap(id);
 //        return gradeMapper.getAllStudentAssociation(id);
         return gradeMapper.getAllStudent();
+
+
     }
+    public GradeMysqlDTO getAllStudentByMysql() {
+        return gradeMapper.mysqlAllStudent();
+    }
+
 }

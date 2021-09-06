@@ -6,11 +6,11 @@
         <id property="id" column="id"/>
         <!--这样的方式如果存在一样的dname会被去重-->
         <result property="name" column="name"/>
-<!--        <collection property="users" javaType="java.util.List" ofType="top.piao888.springboot.domain.User">-->
-<!--            <id property="did" column="did"/>-->
-<!--            <result property="dname" column="dname"/>-->
-<!--            <result property="gradeId" column="grade_id"/>-->
-<!--        </collection>-->
+        <!--        <collection property="users" javaType="java.util.List" ofType="top.piao888.springboot.domain.User">-->
+        <!--            <id property="did" column="did"/>-->
+        <!--            <result property="dname" column="dname"/>-->
+        <!--            <result property="gradeId" column="grade_id"/>-->
+        <!--        </collection>-->
         <collection property="users" javaType="java.util.List" ofType="java.lang.String">
             <result property="dname" column="dname"/>
         </collection>
@@ -61,6 +61,10 @@
         select *
         from grade
         where id = #{id}
+    </select>
+
+    <select id="mysqlAllStudent" resultType="top.piao888.springboot.dto.GradeMysqlDTO">
+        SELECT id,name,GROUP_CONCAT('id:',did,'name:',u.dname) users from grade g left join user u on g.id=u.grade_id GROUP BY g.id
     </select>
 
 
