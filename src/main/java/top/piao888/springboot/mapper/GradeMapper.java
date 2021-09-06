@@ -13,6 +13,8 @@ import java.util.List;
 public interface GradeMapper {
     List<Grade> getAll();
 
+    List<GradeDTO> getAllStudent();
+
     List<GradeDTO> getAllStudentResultMap(Integer id);
 
 
@@ -20,10 +22,12 @@ public interface GradeMapper {
 
     /**
      * 此查询依附于 selectGrade
+     *
      * @param id
      * @return
      */
     List<User> selectUserByGradeId(Integer id);
+
 
     void delete(int id);
 

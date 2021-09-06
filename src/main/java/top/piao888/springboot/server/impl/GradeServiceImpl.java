@@ -20,7 +20,8 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public Collection<GradeDTO> getAllStudent(Integer id) {
-        return gradeMapper.getAllStudentResultMap(id);
+//        return gradeMapper.getAllStudentResultMap(id);
 //        return gradeMapper.getAllStudentAssociation(id);
+        return gradeMapper.getAllStudent();
     }
 }
