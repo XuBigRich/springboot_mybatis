@@ -2,8 +2,13 @@ package top.piao888.springboot.server.impl;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import top.piao888.springboot.config.HttpSessionConfigurator;
 import top.piao888.springboot.domain.WebSocket;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -11,7 +16,7 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ServerEndpoint("/webSocket/{sid}")
+@ServerEndpoint(value = "/webSocket/{sid}", configurator = HttpSessionConfigurator.class)
 @Component
 public class WebSocketServer {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -22,30 +27,37 @@ public class WebSocketServer {
 
     //发送消息
     public void sendMessage(Session session, String message) throws IOException {
-        if(session != null){
+        if (session != null) {
             synchronized (session) {
 //                System.out.println("发送数据：" + message);
                 session.getBasicRemote().sendText(message);
             }
         }
     }
-    public void sendMessage(String userName,String message) throws IOException {
-        Session session= sessionPools.get(userName);
-        sendMessage(session,message);
+
+    public void sendMessage(String userName, String message) throws IOException {
+        Session session = sessionPools.get(userName);
+        sendMessage(session, message);
     }
+
     //给指定用户发送信息
-    public void sendInfo(String userName, String message){
+    public void sendInfo(String userName, String message) {
         Session session = sessionPools.get(userName);
         try {
             sendMessage(session, message);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //建立连接成功调用
     @OnOpen
-    public void onOpen(Session session, @PathParam(value = "sid") String userName){
+    public void onOpen(Session session, @PathParam(value = "sid") String userName, EndpointConfig config) {
+        //验证通过ws协议请求到的数据 可以获取到session信息吗？ ,实验证明这样的方式无法获取到session信息，所以常规手段获取不到session信息
+//        HttpServletRequest httpServletRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//        Cookie[] cookies = httpServletRequest.getCookies();
+//        System.out.println(cookies);
+
         sessionPools.put(userName, session);
         addOnlineCount();
         System.out.println(userName + "加入webSocket！当前人数为" + onlineNum);
@@ -58,7 +70,7 @@ public class WebSocketServer {
 
     //关闭连接时调用
     @OnClose
-    public void onClose(@PathParam(value = "sid") String userName){
+    public void onClose(@PathParam(value = "sid") String userName) {
         sessionPools.remove(userName);
         subOnlineCount();
         System.out.println(userName + "断开webSocket连接！当前人数为" + onlineNum);
@@ -66,14 +78,14 @@ public class WebSocketServer {
 
     //收到客户端信息
     @OnMessage
-    public void onMessage(String message) throws IOException{
-        WebSocket webSocket=  JSON.parseObject(message, WebSocket.class);
+    public void onMessage(String message) throws IOException {
+        WebSocket webSocket = JSON.parseObject(message, WebSocket.class);
         message = "客户端：" + message + ",已收到";
         System.out.println(message);
-        for (Session session: sessionPools.values()) {
+        for (Session session : sessionPools.values()) {
             try {
                 sendMessage(webSocket.getToUserId(), message);
-            } catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 continue;
             }
@@ -82,12 +94,12 @@ public class WebSocketServer {
 
     //错误时调用
     @OnError
-    public void onError(Session session, Throwable throwable){
+    public void onError(Session session, Throwable throwable) {
         System.out.println("发生错误");
         throwable.printStackTrace();
     }
 
-    public static void addOnlineCount(){
+    public static void addOnlineCount() {
         onlineNum.incrementAndGet();
     }
 

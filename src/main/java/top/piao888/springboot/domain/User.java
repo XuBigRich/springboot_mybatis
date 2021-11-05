@@ -1,10 +1,10 @@
 package top.piao888.springboot.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 public class User {
     private int did;
     private String dname;

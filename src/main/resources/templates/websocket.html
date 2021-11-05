@@ -8,6 +8,9 @@
 <body>
 <h3>hello socket</h3>
 <p>【userId】：
+<div><input id="login" name="name" type="text" value="10"></div>
+<div><a src="#" onclick="login()"> 请求登录</a></div>
+<p>【userId】：
 <div><input id="userId" name="userId" type="text" value="10"></div>
 <p>【toUserId】：
 <div><input id="toUserId" name="toUserId" type="text" value="20"></div>
@@ -21,6 +24,19 @@
 </body>
 <script>
 
+    function get(url, func) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('get', url, true);
+        httpRequest.send();
+        httpRequest.onreadystatechange = func
+    }
+
+    function login() {
+        var name = document.getElementById("login").value
+        get("http://127.0.0.1:8080/login?name="+name,function (e){
+            console.log(e)
+        })
+    }
 
     var socket;
 
