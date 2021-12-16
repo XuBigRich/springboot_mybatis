@@ -11,7 +11,7 @@
         <!--            <result property="dname" column="dname"/>-->
         <!--            <result property="gradeId" column="grade_id"/>-->
         <!--        </collection>-->
-        <collection property="users" javaType="java.util.List" ofType="java.lang.String">
+        <collection property="users" javaType="java.util.List" ofType="top.piao888.springboot.domain.User">
             <result property="dname" column="dname"/>
         </collection>
     </resultMap>
@@ -27,7 +27,7 @@
         <result property="dname" column="dname"/>
         <result property="gradeId" column="grade_id"/>
     </resultMap>
-
+    <!-- 这里配合上面 返回User-->
     <select id="selectUserByGradeId" resultType="top.piao888.springboot.domain.User">
         <!--    <select id="selectUserByGradeId" resultMap="userMap">-->
         SELECT dname
@@ -54,6 +54,9 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <!--association 的column参数是入参 且可以有多个入参 column="{prop1=col1,prop2=col2}"-->
+        <!--   使用  association  通常是1对1的状态下，或者多对一的状态下使用，因为查询出来的数据 没法指定其真正的类型
+                比如说这里的 javaType 查出来的如果是一个集合只能使用List 去接收
+          -->
         <association property="users" column="id" javaType="java.util.List" select="selectUserByGradeId"/>
     </resultMap>
 
@@ -64,7 +67,10 @@
     </select>
 
     <select id="mysqlAllStudent" resultType="top.piao888.springboot.dto.GradeMysqlDTO">
-        SELECT id,name,GROUP_CONCAT('id:',did,'name:',u.dname) users from grade g left join user u on g.id=u.grade_id GROUP BY g.id
+        SELECT id, name, GROUP_CONCAT('id:', did, 'name:', u.dname) users
+        from grade g
+                 left join user u on g.id = u.grade_id
+        GROUP BY g.id
     </select>
 
 
