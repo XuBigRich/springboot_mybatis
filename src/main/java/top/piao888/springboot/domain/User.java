@@ -6,7 +6,16 @@ import lombok.Setter;
 
 @Data
 public class User {
+    /**
+     * 学生id
+     */
     private int did;
+    /**
+     * 学生名称
+     */
     private String dname;
-    private int gradeId;
+    /**
+     * 所属年级
+     */
+    private Integer gradeId;
 }

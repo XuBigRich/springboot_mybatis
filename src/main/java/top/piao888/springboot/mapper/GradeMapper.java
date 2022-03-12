@@ -23,6 +23,7 @@ public interface GradeMapper {
 
     /**
      * 使用mysql原生方案
+     *
      * @return
      */
     GradeMysqlDTO mysqlAllStudent();
@@ -39,5 +40,9 @@ public interface GradeMapper {
     void delete(int id);
 
     void insert(Grade user);
+
+    Grade getGradeById(int id);
+
+    int registration(int version, int id);
 
 }

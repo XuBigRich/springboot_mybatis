@@ -11,5 +11,5 @@ import java.util.List;
 public interface UserMapper {
      List<User> getAll();
      void delete(int id);
-     void insert(User user);
+     int insert(User user);
 }

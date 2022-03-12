@@ -32,4 +32,5 @@ public class MybatisController {
     public GradeMysqlDTO getAllStudentByMysql(){
         return gradeService. getAllStudentByMysql();
     }
+
 }
