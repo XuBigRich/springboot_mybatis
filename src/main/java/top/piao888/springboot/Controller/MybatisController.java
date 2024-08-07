@@ -43,4 +43,5 @@ public class MybatisController {
         List<JSONObject> result = gradeService.getTimeJsonObject();
         return result;
     }
+
 }

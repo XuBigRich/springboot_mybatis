@@ -25,7 +25,6 @@ public interface GradeMapper {
 
     /**
      * 使用mysql原生方案
-     *
      * @return
      */
     GradeMysqlDTO mysqlAllStudent();
@@ -46,4 +45,8 @@ public interface GradeMapper {
     List<Time> getTime();
 
     List<JSONObject> getTimeJsonObject();
+    Grade getGradeById(int id);
+
+    int registration(int version, int id);
+
 }

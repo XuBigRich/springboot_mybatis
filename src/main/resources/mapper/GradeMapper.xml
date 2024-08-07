@@ -15,6 +15,18 @@
             <result property="dname" column="dname"/>
         </collection>
     </resultMap>
+    <update id="registration">
+        update grade
+        set registration=registration - 1 , version = version + 1
+        where registration > 0
+          and id = #{id}
+          and version = #{version}
+    </update>
+    <select id="getGradeById" resultType="top.piao888.springboot.domain.Grade">
+        select *
+        from grade
+        where id = #{id}
+    </select>
 
     <select id="getAllStudent" resultMap="allStudent">
         select g.id id, g.name name, u.did did, u.dname dname, u.grade_id gradeId

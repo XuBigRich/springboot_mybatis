@@ -3,15 +3,16 @@
 <mapper namespace="top.piao888.springboot.mapper.UserMapper">
     <select id="getAll" resultType="top.piao888.springboot.domain.User">
         select *
-        from dept
+        from user
     </select>
     <delete id="delete" parameterType="int">
         delete
-        from dept
+        from user
         where did = #{id}
     </delete>
     <insert id="insert" parameterType="top.piao888.springboot.domain.User">
-        insert into dept(did, dname, class_id)
-        values (#{did}, #{dname},#{classId})
+        insert into user(dname, grade_id)
+        values (#{dname}, #{gradeId})
     </insert>
+
 </mapper>
