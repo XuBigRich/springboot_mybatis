@@ -78,6 +78,14 @@
         select *
         from grade
     </select>
+    <select id="getTime" resultType="top.piao888.springboot.domain.Time">
+        select time from Time
+    </select>
+
+    <select id="getTimeJsonObject" resultType="com.alibaba.fastjson.JSONObject">
+        select time from Time
+    </select>
+
 
     <delete id="delete" parameterType="int">
         delete

@@ -1,6 +1,8 @@
 package top.piao888.springboot.mapper;
 
+import com.alibaba.fastjson.JSONObject;
 import top.piao888.springboot.domain.Grade;
+import top.piao888.springboot.domain.Time;
 import top.piao888.springboot.domain.User;
 import top.piao888.springboot.dto.GradeDTO;
 import top.piao888.springboot.dto.GradeMysqlDTO;
@@ -23,6 +25,7 @@ public interface GradeMapper {
 
     /**
      * 使用mysql原生方案
+     *
      * @return
      */
     GradeMysqlDTO mysqlAllStudent();
@@ -40,4 +43,7 @@ public interface GradeMapper {
 
     void insert(Grade user);
 
+    List<Time> getTime();
+
+    List<JSONObject> getTimeJsonObject();
 }
